@@ -5,7 +5,7 @@
   <meta name="viewport"
   		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-  <title>Listado de Usuarios</title> 
+  <title>Listado De Usuarios</title> 
   </head> 
   <body>
 <!--  	<h1>Usuarios</h1> -->
