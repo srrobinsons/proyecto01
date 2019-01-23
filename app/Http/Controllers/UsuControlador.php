@@ -18,7 +18,7 @@ class UsuControlador extends Controller
     	$titulo   = "Usuarios";
 
     	// view(xxx, yyy)... xxx=nombre vista, yyy=variables a pasar
-    	return view('usuarios', 
+    	return view('usu.index', 
     				['usu'   => $usu,
     				 'titulo'=> $titulo]);
 		/*
@@ -36,7 +36,7 @@ class UsuControlador extends Controller
     	//return 'Crear nuevo usuario';
     	$titulo = "Crear nuevo usuario";
 
-    	return view('usu_nuevo',
+    	return view('usu.nuevo',
     				['titulo' => $titulo]);
     }
 
@@ -47,7 +47,7 @@ class UsuControlador extends Controller
     	$titulo = "Detalle de usuario # $id";
     	$id_usu = $id;
 
-    	return view('usu_info',
+    	return view('usu.info',
     				['titulo' => $titulo,
     				 'id_usu' => $id_usu]);
     }
