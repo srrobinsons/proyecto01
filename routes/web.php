@@ -16,13 +16,15 @@
 //});
 
 Route::get('/', function() {
-	return 'Home';
-});
+	return view('welcome');
+})->name('l_home');
 
-Route::get('/usuarios','UsuControlador@usu_indice');
+Route::get('/usuarios','UsuControlador@usu_indice')
+		->name('l_usuarios');
 
 
-Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo');
+Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo')
+		->name('l_nuevo');
 
 // $id, parametro que tomara de lo puesto en url
 // ->where('id', '[0-9]+'), condicion para que id sean solo numeros

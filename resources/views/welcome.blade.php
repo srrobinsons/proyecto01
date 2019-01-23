@@ -81,6 +81,10 @@
                 <div class="title m-b-md">
                     Proyecto 01
                 </div>
+                <div class="links">
+                    <a href="{{ route('l_usuarios') }}">Usuarios</a>
+                    <a href="{{ route('l_nuevo') }}">Nuevo Usuario</a>
+                </div>
 <!--
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

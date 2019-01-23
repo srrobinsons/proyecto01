@@ -10,7 +10,9 @@
 		<ul>
 			@foreach ($usu as $usuarios)
 
-				<li>{{$usuarios}}</li>
+				<li>
+					<a href="#">{{$usuarios}}</a>
+				</li>
 			
 			@endforeach
 		</ul>

@@ -28,12 +28,14 @@
     </style>
     <!-- Custom styles for this template -->
 <!--    <link href="sticky-footer-navbar.css" rel="stylesheet"> -->
-    <link href="css/style.css" rel="stylesheet"> -->
+    <link href="css/style.css" rel="stylesheet">
 
   </head>
   <body class="d-flex flex-column h-100">
     <header>
-  <!-- Fixed navbar -->
+      @include('menu')
+
+  <!-- Fixed navbar 
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Fixed navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,6 +59,7 @@
       </form>
     </div>
   </nav>
+  -->
 </header>
 
 <!-- Begin page content -->
@@ -72,7 +75,7 @@
     <div>
       <div class="col-4">
         @section('sidebar')
-          <h2 class="mt-5">Barra lateral</h2>
+          <h2 class="mt-5">Otro</h2>
         @show
       </div>
     </div>
