@@ -18,7 +18,11 @@ class CreateUsersTable extends Migration
             $table->increments('id');   //id sera un entero que se ira incrementando
             $table->string('name');     //varchar name
             $table->string('email')->unique();  //varchar que sera unico para cada reg
-            //$table->string('profesion',100)->nulable(); //varchar de 100, puede ser null
+            
+            // foreing, campo clave que se asocia al campo id de la tabla 'profesiones'
+            $table->unsignedInteger('profesion_id');
+            $table->foreign('profesion_id')->references('id')->on('profesiones');                    
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
