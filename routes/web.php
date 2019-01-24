@@ -29,7 +29,9 @@ Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo')
 // $id, parametro que tomara de lo puesto en url
 // ->where('id', '[0-9]+'), condicion para que id sean solo numeros
 Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin parm a controler
-	  ->where('id', '[0-9]+');
+	//->where('id', '[0-9]+');
+	  ->where('id','[A-Za-z]+')
+	  ->name('l_usu_id');
 
 // el ? en nickname es que no es obligatorio. Si no es obligatorio en function lo
 // inicilizamos con null
