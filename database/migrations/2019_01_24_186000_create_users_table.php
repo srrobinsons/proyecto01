@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();  //varchar que sera unico para cada reg
             
             // foreing, campo clave que se asocia al campo id de la tabla 'profesiones'
-            $table->unsignedInteger('profesion_id');
-            $table->foreign('profesion_id')->references('id')->on('profesiones');                    
+            $table->unsignedInteger('profesion_id')->nullable();
+            $table->foreign('profesion_id')->references('id')->on('profesiones');
 
             $table->string('password');
             $table->rememberToken();
