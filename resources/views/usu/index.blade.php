@@ -11,7 +11,8 @@
 			@foreach ($usu as $usuarios)
 
 				<li>
-					{{$usuarios}}
+					{{$usuarios->name}}
+					<!-- <a href="{{ route('l_usu_id',$usuarios->name) }}">{{$usuarios->name}}</a> -->
 				</li>
 			
 			@endforeach

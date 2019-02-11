@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Usuarios extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -26,4 +25,15 @@ class Usuarios extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+    //public static function buscarEmail($email) {
+    //    return Usuarios::where('email', $email)->first();        
+    //}
+
+    public function profesion() {
+        return $this->belongsTo(Profesiones::class);
+    }
 }

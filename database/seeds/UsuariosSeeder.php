@@ -26,7 +26,8 @@ class UsuariosSeeder extends Seeder
 
         //
         //DB::table('usuarios')->insert([
-        Usuarios::create([            
+        //Usuarios::create([            
+        factory(Usuarios::class)->create([
         	'name' => 'Jose',
         	'email'=> 'jose@mail.com',
         	//'profesion_id' => $profesion->id,
@@ -38,7 +39,8 @@ class UsuariosSeeder extends Seeder
 
         $profesionId = Profesiones::where('titulo', 'mecanico')->value('id');
 
-        Usuarios::create([
+        //Usuarios::create([
+        factory(Usuarios::class)->create([
             'name' => 'Juan',
             'email'=> 'juan@mail.com',
             'profesion_id' => $profesionId,
@@ -47,12 +49,21 @@ class UsuariosSeeder extends Seeder
 
         $profesionId = Profesiones::where('titulo', 'enfermero')->value('id');
 
-        Usuarios::create([
+        //Usuarios::create([
+        factory(Usuarios::class)->create([
             'name' => 'Pedro',
             'email'=> 'pedro@mail.com',
             'profesion_id' => $profesionId,
             'password' => bcrypt('12345'),
         ]);
 
+
+        factory(Usuarios::class)->create([
+            'profesion_id' => $profesionId,
+        ]);
+
+        factory(Usuarios::class,6)->create([
+            'profesion_id' => $profesionId,
+        ]);
     }
-}
+}   

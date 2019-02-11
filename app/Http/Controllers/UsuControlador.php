@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Usuarios;
 
 class UsuControlador extends Controller
 {
@@ -12,7 +13,10 @@ class UsuControlador extends Controller
     	if(request()->has('empty')) {
     	$usu      = [];
     	}  else {
-    	$usu      = ['Jose','Juan','Pedro','Mateo','Adolfo'];    		
+    	//$usu      = ['Jose','Juan','Pedro','Mateo','Adolfo'];
+        //$usu      = ['Jose','Juan','Pedro'];
+        $usu = Usuarios::all();
+        //$usu = DB::table('usuarios')->get();
     	}
 
     	$titulo   = "Usuarios";
@@ -48,11 +52,12 @@ class UsuControlador extends Controller
     	
     	$titulo = "Detalle de usuario # $id";
     	$id_usu = $id;
+        $datos_usu = Usuarios::where('name', '$id');
 
     	//return view('usu.info',
     	//			['titulo' => $titulo,
     	//			 'id_usu' => $id_usu]);
-    	return view('usu.info',compact('titulo','id_usu'));  
+    	return view('usu.info',compact('titulo','id_usu','datos_usu'));  
     }
 
 }

@@ -26,16 +26,6 @@ class ProfesionSeeder extends Seeder
             'titulo' => 'enfermero',
         ]);
 
-        //DB::table('profesiones')->insert([
-        //	'titulo' => 'carpintero',
-        //]);
-
-        //DB::table('profesiones')->insert([
-        //	'titulo' => 'mecanico',
-        //]);        
-
-        //DB::table('profesiones')->insert([
-        //	'titulo' => 'Enfermero',
-        //]);
+        factory(Profesiones::class)->times(17)->create();
     }
 }

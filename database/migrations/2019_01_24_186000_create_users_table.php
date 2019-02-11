@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->foreign('profesion_id')->references('id')->on('profesiones');
 
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

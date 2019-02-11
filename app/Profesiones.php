@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profesiones extends Model
 {
     //
+    protected $fillable = [
+        'titulo'
+    ];
 }
