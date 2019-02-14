@@ -4,36 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuarios;
+use App\Profesiones;
+use Illuminate\Support\Facades\DB;
 
 class UsuControlador extends Controller
 {
     public function usu_indice()
     {
-    	//return 'Usuarios';
     	if(request()->has('empty')) {
     	$usu      = [];
     	}  else {
-    	//$usu      = ['Jose','Juan','Pedro','Mateo','Adolfo'];
-        //$usu      = ['Jose','Juan','Pedro'];
-        $usu = Usuarios::all();
-        //$usu = DB::table('usuarios')->get();
+        //$usu = DB::table('usuarios')->get(); // Obtener registros desde la Base Datos
+        $usu = Usuarios::all();           // Obtener registros con ELOQUENT
     	}
 
     	$titulo   = "Usuarios";
 
-    	// view(xxx, yyy)... xxx=nombre vista, yyy=variables a pasar
     	//return view('usu.index', 
     	//			['usu'   => $usu,
     	//			 'titulo'=> $titulo]);
     	return view('usu.index',compact('usu','titulo'));
-		/*
-    	//otra forma de pasar hacer lo mismo que antes es
-    	return view('usuarios')
-			->with('usu',$usu)
-			->with('titulo',$titulo);  		   
-		*/
-    	//otra forma de pasar hacer lo mismo que antes es, compact arma array asociativo
-    	//return view('usuarios', compact('usu','titulo'));
     }
 
     public function usu_nuevo()
@@ -41,8 +31,6 @@ class UsuControlador extends Controller
     	//return 'Crear nuevo usuario';
     	$titulo = "Crear nuevo usuario";
 
-    	//return view('usu.nuevo',
-    	//			['titulo' => $titulo]);
     	return view('usu.nuevo',compact('titulo'));
     }
 
@@ -52,12 +40,10 @@ class UsuControlador extends Controller
     	
     	$titulo = "Detalle de usuario # $id";
     	$id_usu = $id;
-        $datos_usu = Usuarios::where('name', '$id');
-
-    	//return view('usu.info',
-    	//			['titulo' => $titulo,
-    	//			 'id_usu' => $id_usu]);
-    	return view('usu.info',compact('titulo','id_usu','datos_usu'));  
+        $datos_usu = Usuarios::find($id);
+        $datos_prof = Profesiones::find($datos_usu->profesion_id);
+        
+    	return view('usu.info',compact('titulo','datos_prof','datos_usu'));  
     }
 
 }

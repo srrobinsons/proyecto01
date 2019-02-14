@@ -12,7 +12,7 @@
 
 				<li>
 					{{$usuarios->name}}
-					<!-- <a href="{{ route('l_usu_id',$usuarios->name) }}">{{$usuarios->name}}</a> -->
+					<a href="{{ route('l_usu_id',$usuarios->id) }}"> - ver info </a>
 				</li>
 			
 			@endforeach

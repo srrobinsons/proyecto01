@@ -28,8 +28,8 @@ class UsuariosSeeder extends Seeder
         //DB::table('usuarios')->insert([
         //Usuarios::create([            
         factory(Usuarios::class)->create([
-        	'name' => 'Jose',
-        	'email'=> 'jose@mail.com',
+        	'name' => 'Jose Perez',
+        	'email'=> 'jose.perez@mail.com',
         	//'profesion_id' => $profesion->id,
             'profesion_id' => $profesionId,
         	// el bcrypt te encripta la pass para que no la veas en la base de datos
@@ -41,8 +41,8 @@ class UsuariosSeeder extends Seeder
 
         //Usuarios::create([
         factory(Usuarios::class)->create([
-            'name' => 'Juan',
-            'email'=> 'juan@mail.com',
+            'name' => 'Juan Gomez',
+            'email'=> 'juan.gomez@mail.com',
             'profesion_id' => $profesionId,
             'password' => bcrypt('12345'),
         ]);
@@ -51,8 +51,8 @@ class UsuariosSeeder extends Seeder
 
         //Usuarios::create([
         factory(Usuarios::class)->create([
-            'name' => 'Pedro',
-            'email'=> 'pedro@mail.com',
+            'name' => 'Pedro Gonzales',
+            'email'=> 'pedro.gonzales@mail.com',
             'profesion_id' => $profesionId,
             'password' => bcrypt('12345'),
         ]);
@@ -63,7 +63,6 @@ class UsuariosSeeder extends Seeder
         ]);
 
         factory(Usuarios::class,6)->create([
-            'profesion_id' => $profesionId,
         ]);
     }
 }   

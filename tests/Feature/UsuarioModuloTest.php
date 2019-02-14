@@ -32,9 +32,9 @@ class UsuarioModuloTest extends TestCase
      * @test */
     function usuarios_abc()
     {
-        $this->get('/usuarios/abc')
+        $this->get('/usuarios/1')
              ->assertStatus(200)
-             ->assertSee('Detalle de usuario: abc');
+             ->assertSee('Detalle de usuario:');
     }
 
     /**
@@ -45,6 +45,5 @@ class UsuarioModuloTest extends TestCase
              ->assertStatus(200)
              ->assertSee('Crear nuevo usuario');
     }
-
 
 }
