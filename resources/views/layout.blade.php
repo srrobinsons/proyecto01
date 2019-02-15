@@ -75,7 +75,7 @@
     <div>
       <div class="col-4">
         @section('sidebar')
-          <h2 class="mt-5">Otro</h2>
+          <!-- <h2 class="mt-5">Otro</h2> -->
         @show
       </div>
     </div>

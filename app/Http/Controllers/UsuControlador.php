@@ -35,15 +35,30 @@ class UsuControlador extends Controller
     }
 
     public function usu_id($id)
-    {
-    	//return "Detalle de usuario = {$id}";
-    	
+    {    
     	$titulo = "Detalle de usuario # $id";
     	$id_usu = $id;
-        $datos_usu = Usuarios::find($id);
+        //$datos_usu = Usuarios::find($id);
+        $datos_usu  = Usuarios::findOrFail($id);
         $datos_prof = Profesiones::find($datos_usu->profesion_id);
         
-    	return view('usu.info',compact('titulo','datos_prof','datos_usu'));  
+    	return view('usu.info',compact('titulo','datos_prof','datos_usu'));
     }
 
+    public function store()
+    {
+        //return 'Procesando Informacion...';        
+        $data = request()->all();
+        //$profesionId = Profesiones::where('titulo', 'carpintero')->value('id');
+
+        Usuarios::create([
+            'name' => $data['nombre'],
+            'email'=> $data['mail'],
+            //'profesion_id' => $profesionId,
+            'password' => bcrypt($data['clave1'])
+        ]);
+
+        //return 'Procesando info...';
+        return redirect('usuarios');
+    }    
 }

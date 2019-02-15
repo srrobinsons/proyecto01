@@ -12,6 +12,9 @@ Route::get('/usuarios','UsuControlador@usu_indice')
 Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo')
 		->name('l_nuevo');
 
+Route::post('/usuarios/crear','UsuControlador@store')
+		->name('l_crear');
+
 // $id, parametro que tomara de lo puesto en url
 // ->where('id', '[0-9]+'), condicion para que id sean solo numeros
 Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin parm a controler	

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Usuarios;
 
 class UsuarioModuloTest extends TestCase
 {
@@ -37,6 +38,12 @@ class UsuarioModuloTest extends TestCase
              ->assertSee('Detalle de usuario:');
     }
 
+    function hay_error_404() {
+        $this->get('/usuarios/999')
+             ->assertStatus(404)
+             ->assertSee('Página no encontrada');
+    }
+
     /**
      * @test */
     function usuarios_nuevo()
@@ -46,4 +53,28 @@ class UsuarioModuloTest extends TestCase
              ->assertSee('Crear nuevo usuario');
     }
 
+
+    /**
+     * @test */
+    function se_creo_nuevo_usu()
+
+    {
+        $this->withoutExceptionHandling();
+
+        $this->post('/usuarios/crear',[
+            'nombre' => 'Pablo',
+            'mail'=> 'pablo@mail.com',
+            //'profesion_id' => 1,            
+            'clave1' => '12345' ])
+        //;
+             ->assertRedirect('usuarios');
+
+        $this->assertDatabaseHas('usuarios',[
+        //$this->assertCredentials([
+            'name' => 'Pablo',
+            'email'=> 'pablo@mail.com',
+            //'profesion_id' => 1,
+            //'password' => '12345'
+            ]);
+    }
 }
