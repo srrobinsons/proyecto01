@@ -65,7 +65,8 @@ class UsuarioModuloTest extends TestCase
             'nombre' => 'Pablo',
             'mail'=> 'pablo@mail.com',
             //'profesion_id' => 1,            
-            'clave1' => '12345' ])
+            'clave1' => '12345',
+            'clave2' => '12345' ])
         //;
              ->assertRedirect('usuarios');
 
@@ -76,5 +77,27 @@ class UsuarioModuloTest extends TestCase
             //'profesion_id' => 1,
             //'password' => '12345'
             ]);
+    }
+
+
+    /**
+     * @test */
+    function nombre_es_requerido()
+
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->from('usuarios/nuevo')
+             ->post('/usuarios/crear', [
+                'nombre' => '',
+                'mail'   => 'ejemplo@mail.com',
+                'clave1' => '123456'
+             ])
+             ->assertRedirect('usuarios/nuevo')  //redirecciona a la misma 
+             ->assertSessionHasErrors(['nombre' => 'El campo nombre es obligatorio']); //mostrar los errores en sesion
+
+        $this->assertDatabaseMissing('usuarios', [
+            'email' => 'ejemplo@mail.com',
+        ]);
     }
 }

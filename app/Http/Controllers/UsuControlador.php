@@ -47,10 +47,22 @@ class UsuControlador extends Controller
 
     public function store()
     {
-        //return 'Procesando Informacion...';        
-        $data = request()->all();
-        //$profesionId = Profesiones::where('titulo', 'carpintero')->value('id');
+        //$data = request()->all();
+        $data = request()->validate([ 
+            'nombre' => 'required'
+        ],[
+            'nombre.required' => 'El campo nombre es obligatorio'
+        ]);
 
+        //if(empty($data['nombre'])) {
+        //    return redirect('usuarios/nuevo')->withErrors([
+        //        'nombre' => 'El campo nombre es obligatorio'
+        //    ]);
+        //}
+
+        $data = request()->all();
+
+            
         Usuarios::create([
             'name' => $data['nombre'],
             'email'=> $data['mail'],
