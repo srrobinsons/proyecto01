@@ -49,9 +49,21 @@ class UsuControlador extends Controller
     {
         //$data = request()->all();
         $data = request()->validate([ 
-            'nombre' => 'required'
+            'nombre'  => 'required',
+            'mail'    =>['required','email','unique:usuarios,email'],
+            'clave1'  =>['required','alpha_num','between:4,14'],
+            'clave2'  => 'required'
         ],[
-            'nombre.required' => 'El campo nombre es obligatorio'
+            'nombre.required'  => 'El campo nombre es obligatorio'             ,
+            'mail.required'    => 'El campo email es obligatorio'              ,
+            'mail.email'       => 'El mail debe tener formato ejemplo@mail.com',
+            'mail.unique'      => 'El mail ya esta registrado'                 ,
+            'clave1.required'  => 'El campo password es obligatorio'           ,
+            'clave1.alpha_num' => 'El password admite solo alfanumericos'      ,
+            'clave1.between'   => 'El password debe tener de 4 a 14 caracteres',
+            'clave2.required'  => 'El campo password es obligatorio'           ,
+            'clave2.alpha_num' => 'El password admite solo alfanumericos'      ,
+            'clave2.between'   => 'El password debe tener de 4 a 14 caracteres'
         ]);
 
         //if(empty($data['nombre'])) {
@@ -73,4 +85,22 @@ class UsuControlador extends Controller
         //return 'Procesando info...';
         return redirect('usuarios');
     }    
+
+
+    //public function edit($id) 
+    public function edit(Usuarios $usu)
+    {
+        //$id_usu = $id;
+        //$usu  = Usuarios::findOrFail($id);
+        //$datos_prof = Profesiones::find($usu->profesion_id);
+        //dd($usu);
+
+        return view('usu.edit',['usu' => $usu]);
+    }
+
+    public function update(Usuarios $usu)
+    {
+        //return redirect('usuarios/{$usu->id}');
+        return redirect('usuarios');
+    }
 }

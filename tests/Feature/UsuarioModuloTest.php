@@ -100,4 +100,138 @@ class UsuarioModuloTest extends TestCase
             'email' => 'ejemplo@mail.com',
         ]);
     }
+
+
+    /**
+     * @test */
+    function mail_es_requerido()
+
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->from('usuarios/nuevo')
+             ->post('/usuarios/crear', [
+                'nombre' => 'Monica',
+                'mail'   => '',
+                'clave1' => '123456'
+             ])
+             ->assertRedirect('usuarios/nuevo')  //redirecciona a la misma 
+             ->assertSessionHasErrors(['mail' => 'El campo email es obligatorio']); // mostrar los errores en sesion
+
+        //para afirmar que no existe Monica en tabla usuarios
+        $this->assertDatabaseMissing('usuarios', [
+            'name' => 'Monica',
+        ]);
+    }
+
+    /**
+     * @test */
+    function mail_debe_ser_valido()
+
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->from('usuarios/nuevo')
+             ->post('/usuarios/crear', [
+                'nombre' => 'Norberto',
+                'mail'   => 'mail-no-valido',
+                'clave1' => '123456'
+             ])
+             ->assertRedirect('usuarios/nuevo')  //redirecciona a la misma 
+             ->assertSessionHasErrors(['mail']); // mostrar los errores en sesion
+
+        //para afirmar que no existe Norberto en tabla usuarios
+        $this->assertDatabaseMissing('usuarios', [
+            'name' => 'Norberto',
+        ]);
+    }
+
+    /**
+     * @test */
+    function mail_debe_ser_unico()
+
+    {
+        factory(Usuarios::class)->create([
+            'name' => 'Juan P',
+            'email' => 'juan.perez@mail.com',
+            'password' => '123456'
+        ]);
+
+        $this->from('usuarios/nuevo')
+             ->post('/usuarios/crear', [
+                'nombre' => 'Juan Perez',
+                'mail'   => 'juan.perez@mail.com',
+                'clave1' => '123456'
+             ])
+             ->assertRedirect('usuarios/nuevo')  //redirecciona a la misma 
+             ->assertSessionHasErrors(['mail']); // mostrar los errores en sesion
+
+        //para afirmar que no existe Norberto en tabla usuarios
+        $this->assertDatabaseMissing('usuarios', [
+            'name' => 'Juan Perez',
+        ]);
+    }
+
+    /**
+     * @test */
+    function password_es_requerido()
+
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->from('usuarios/nuevo')
+             ->post('/usuarios/crear', [
+                'nombre' => 'Raul',
+                'mail'   => 'raul@mail.com',
+                'clave1' => ''
+             ])
+             ->assertRedirect('usuarios/nuevo')  //redirecciona a la misma 
+             ->assertSessionHasErrors(['clave1' => 'El campo password es obligatorio']); // mostrar los errores en sesion
+
+        //para afirmar que no existe Raul en tabla usuarios
+        $this->assertDatabaseMissing('usuarios', [
+            'name' => 'Raul',
+        ]);
+    } 
+
+
+    /**
+     * @test */
+    /*function se_edita_usu()
+
+    {
+        $this->withoutExceptionHandling();
+
+        //$user = factory(User::class)->create();
+        $user = factory(Usuarios::class)->create([]);
+
+        // usuarios/5/editar
+        $this->get('usuarios/{$user->id}/editar')
+             ->assertStatus(200)
+             ->assertSee('Editar usuario');
+    }
+    */
+
+    /**
+     * @test */
+    function actualizar_usuarios()
+
+    {
+        $user = factory(Usuarios::class)->create();
+
+        $this->withoutExceptionHandling();
+
+        $this->put('/usuarios/{$user->id}',[
+            'nombre' => 'popo2',
+            'mail'=> 'opop2@mail.com',
+            'clave1' => '12345',
+            'clave2' => '12345' ])
+             ->assertRedirect('/usuarios/{$usu->id}');
+
+        $this->assertDatabaseHas('usuarios',[
+            'name' => 'Pablo',
+            'email'=> 'pablo@mail.com',
+            ]);
+    }
+
 }

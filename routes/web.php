@@ -15,6 +15,9 @@ Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo')
 Route::post('/usuarios/crear','UsuControlador@store')
 		->name('l_crear');
 
+Route::get('/usuarios/{usu}/editar','UsuControlador@edit')
+		->name('edit');
+
 // $id, parametro que tomara de lo puesto en url
 // ->where('id', '[0-9]+'), condicion para que id sean solo numeros
 Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin parm a controler	
@@ -22,6 +25,8 @@ Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin pa
 		->where('id','[0-9]+');
 		//->where('id','[A-Za-z_ ]+');
 		//->where('id','[A-Za-z]+');
+
+Route::get('/usuarios/{usu}','UsuControlador@update');
 
 // el ? en nickname es que no es obligatorio. Si no es obligatorio en function lo
 // inicilizamos con null

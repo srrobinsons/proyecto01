@@ -1,10 +1,10 @@
 @extends('layout')
 
-@section('titulo', "Usuario nuevo")
+@section('titulo', "Usuario a Editar")
 
 @section('content')
 
-    <h1 class="mt-5">{{ $titulo }}</h1>
+    <h1 class="mt-5">Editar Usuarios</h1>
     
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -12,16 +12,14 @@
     </div>        
     @endif                  
 
-    {{-- <form method="post" action="{{ url('usuarios/crear') }}"> --}}
-    {{-- <form method="post" action="{{ route('l_crear') }}"> --}}
-    <form method="post" action="{{ route('l_crear') }}">
-    {{--class="needs-validation" novalidate>--}}
+    <form method="post" action="{{ route('l_usuarios') }}">
+
       {{ csrf_field() }}
-        
+      
       <div class="form-group row">
-        <label for="nombre" class="col-sm-4 col-form-label">*Ingrese nombre:</label>
+        <label for="nombre" class="col-sm-4 col-form-label">* Nombre:</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="nombre" placeholder="" value="{{ old('nombre') }}">
+          <input type="text" class="form-control" name="nombre" placeholder="" value="{{ $usu->name }}">
         </div>
         @if ($errors->has('nombre'))
           <p class="text-danger">{{ $errors->first('nombre') }}</p>
@@ -29,9 +27,9 @@
       </div>
       
       <div class="form-group row">
-        <label for="mail" class="col-sm-4 col-form-label">*Ingrese mail:</label>
+        <label for="mail" class="col-sm-4 col-form-label">* Mail:</label>
         <div class="col-sm-6">
-          <input type="email" class="form-control" name="mail" placeholder="xxxxx@mail.com" value="{{ old('mail') }}">
+          <input type="email" class="form-control" name="mail" placeholder="xxxxx@mail.com" value="{{ $usu->email }}">
         </div>
         @if ($errors->has('mail'))
             <p class="text-danger">{{ $errors->first('mail') }}</p>
@@ -39,35 +37,29 @@
       </div>
 
       <div class="form-group row">
-        <label for="clave1" class="col-sm-4 col-form-label">*Ingrese clave:</label>
+        <label for="clave1" class="col-sm-4 col-form-label">* Clave Nueva:</label>
         <div class="col-sm-6">
           <input type="password" class="form-control" name="clave1" placeholder="mayor a 4 caracteres">
         </div>
           @if ($errors->has('clave1'))
               <p class="text-danger">{{ $errors->first('clave1') }}</p>
           @endif
-      </div>      
+      </div>
 
       <div class="form-group row">
-        <label for="clave2" class="col-sm-4 col-form-label">*Repita clave:</label>
+        <label for="clave2" class="col-sm-4 col-form-label">*Repita Clave:</label>
         <div class="col-sm-6">
           <input type="password" class="form-control" name="clave2">
         </div>
           @if ($errors->has('clave2'))
               <p class="text-danger">{{ $errors->first('clave2') }}</p>
-          @endif      
-      </div>      
+          @endif
+      </div>
 
-      <!--
-      Profesion id: 
-      <input type="text" name="profesion_id"> 
-      <br>   
-      -->
-      <input type="submit" value="confirmar"> 
+      <input type="submit" value="Actualizar usuario">
     </form>
 
     <br>
-      <a href="{{ route('l_usuarios') }}"> - volver </a>    
+      <a href="{{ route('l_usuarios') }}"> - volver </a>
 
 @endsection
-
