@@ -10,7 +10,7 @@
     <div class="alert alert-danger">
       <h6 class="mt-1">Corriga los errores</h6>  
     </div>        
-    @endif                  
+    @endif
 
     {{-- <form method="post" action="{{ url('usuarios/crear') }}"> --}}
     {{-- <form method="post" action="{{ route('l_crear') }}"> --}}

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h1 class="mt-5">Editar Usuarios</h1>
+    <h1 class="mt-5">Editar Usuario</h1>
     
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -12,7 +12,7 @@
     </div>        
     @endif                  
 
-    <form method="post" action="{{ route('l_usuarios') }}">
+    <form method="post" action="{{ route('l_update',$usu) }}">
 
       {{ csrf_field() }}
       

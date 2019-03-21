@@ -16,7 +16,7 @@ Route::post('/usuarios/crear','UsuControlador@store')
 		->name('l_crear');
 
 Route::get('/usuarios/{usu}/editar','UsuControlador@edit')
-		->name('edit');
+		->name('l_edit');
 
 // $id, parametro que tomara de lo puesto en url
 // ->where('id', '[0-9]+'), condicion para que id sean solo numeros
@@ -24,9 +24,10 @@ Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin pa
 		->name('l_usu_id')
 		->where('id','[0-9]+');
 		//->where('id','[A-Za-z_ ]+');
-		//->where('id','[A-Za-z]+');
+		//->where('id','[A-Za-z]+');		
 
-Route::get('/usuarios/{usu}','UsuControlador@update');
+Route::post('/usuarios/{usu}','UsuControlador@update')
+		->name('l_update');
 
 // el ? en nickname es que no es obligatorio. Si no es obligatorio en function lo
 // inicilizamos con null

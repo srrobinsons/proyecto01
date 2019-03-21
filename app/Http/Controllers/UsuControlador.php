@@ -35,8 +35,9 @@ class UsuControlador extends Controller
     }
 
     public function usu_id($id)
-    {    
-    	$titulo = "Detalle de usuario # $id";
+    {
+    	//$titulo = "Detalle de usuario # $id";
+        $titulo = "";
     	$id_usu = $id;
         //$datos_usu = Usuarios::find($id);
         $datos_usu  = Usuarios::findOrFail($id);
@@ -48,7 +49,7 @@ class UsuControlador extends Controller
     public function store()
     {
         //$data = request()->all();
-        $data = request()->validate([ 
+        $data = request()->validate([
             'nombre'  => 'required',
             'mail'    =>['required','email','unique:usuarios,email'],
             'clave1'  =>['required','alpha_num','between:4,14'],
@@ -74,7 +75,7 @@ class UsuControlador extends Controller
 
         $data = request()->all();
 
-            
+
         Usuarios::create([
             'name' => $data['nombre'],
             'email'=> $data['mail'],
@@ -84,10 +85,10 @@ class UsuControlador extends Controller
 
         //return 'Procesando info...';
         return redirect('usuarios');
-    }    
+    }
 
 
-    //public function edit($id) 
+    //public function edit($id)
     public function edit(Usuarios $usu)
     {
         //$id_usu = $id;
@@ -97,10 +98,31 @@ class UsuControlador extends Controller
 
         return view('usu.edit',['usu' => $usu]);
     }
-
+    
     public function update(Usuarios $usu)
     {
-        //return redirect('usuarios/{$usu->id}');
-        return redirect('usuarios');
+        $titulo = "Actualizado";
+        //$datos_usu  = Usuarios::findOrFail($id);
+        //$datos_prof = Profesiones::find($datos_usu->profesion_id);    
+        $datos_prof = '';
+
+        $data = request()->all(); //obtenemos datos formulario
+        //$data['clave1'] = bcrypt($data['clave1']);
+        $usu['name']     = $data['nombre'];
+        $usu['email']    = $data['mail'];
+        $usu['password'] = bcrypt($data['clave1']);
+        $usu->update($data);
+
+        //dd($usu);
+
+        //return redirect()->route('l_usu_id',
+        //                        ['titulo'    =>$titulo, 
+        //                         'datos_prof'=>$datos_prof, 
+        //                         'datos_usu' =>$usu ]);
+        return view('usu.info',
+                                ['titulo'    =>$titulo,
+                                 'datos_prof'=>$datos_prof,
+                                 'datos_usu' =>$usu ]);
     }
+
 }
