@@ -11,8 +11,14 @@
 			@foreach ($usu as $usuarios)
 
 				<li>
-					{{$usuarios->name}}
-					<a href="{{ route('l_usu_id',$usuarios->id) }}"> - ver info </a>
+					<form action="{{ route('l_destroy',$usuarios) }}" method="POST">
+						{{ csrf_field() }}
+						{{ method_field('DELETE') }}
+						{{$usuarios->name}}						
+						<a href="{{ route('l_usu_id',$usuarios->id) }}" class="btn btn-link"> - ver info </a> |
+						<a href="{{ route('l_edit',$usuarios) }}" class="btn btn-link">Editar</a> |
+    					<button type="submit" class="btn btn-link">Eliminar</button>
+					</form>
 				</li>
 			
 			@endforeach

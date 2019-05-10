@@ -8,8 +8,15 @@
     
     @if ($errors->any())
     <div class="alert alert-danger">
-      <h6 class="mt-1">Corriga los errores</h6>  
-    </div>        
+      <h6 class="mt-1">Corriga los errores</h6>
+      {{--  
+      <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+      --}}
+    </div>
     @endif
 
     {{-- <form method="post" action="{{ url('usuarios/crear') }}"> --}}
@@ -17,7 +24,7 @@
     <form method="post" action="{{ route('l_crear') }}">
     {{--class="needs-validation" novalidate>--}}
       {{ csrf_field() }}
-        
+      
       <div class="form-group row">
         <label for="nombre" class="col-sm-4 col-form-label">*Ingrese nombre:</label>
         <div class="col-sm-6">
@@ -46,7 +53,7 @@
           @if ($errors->has('clave1'))
               <p class="text-danger">{{ $errors->first('clave1') }}</p>
           @endif
-      </div>      
+      </div>
 
       <div class="form-group row">
         <label for="clave2" class="col-sm-4 col-form-label">*Repita clave:</label>
@@ -55,13 +62,13 @@
         </div>
           @if ($errors->has('clave2'))
               <p class="text-danger">{{ $errors->first('clave2') }}</p>
-          @endif      
-      </div>      
+          @endif
+      </div>
 
       <!--
-      Profesion id: 
-      <input type="text" name="profesion_id"> 
-      <br>   
+      Profesion id:
+      <input type="text" name="profesion_id">
+      <br>
       -->
       <input type="submit" value="confirmar"> 
     </form>

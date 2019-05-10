@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Usuarios;
 use App\Profesiones;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UsuControlador extends Controller
 {
@@ -53,7 +54,7 @@ class UsuControlador extends Controller
             'nombre'  => 'required',
             'mail'    =>['required','email','unique:usuarios,email'],
             'clave1'  =>['required','alpha_num','between:4,14'],
-            'clave2'  => 'required'
+            'clave2'  =>['required','alpha_num','between:4,14'],
         ],[
             'nombre.required'  => 'El campo nombre es obligatorio'             ,
             'mail.required'    => 'El campo email es obligatorio'              ,
@@ -98,31 +99,56 @@ class UsuControlador extends Controller
 
         return view('usu.edit',['usu' => $usu]);
     }
-    
+
     public function update(Usuarios $usu)
     {
         $titulo = "Actualizado";
         //$datos_usu  = Usuarios::findOrFail($id);
-        //$datos_prof = Profesiones::find($datos_usu->profesion_id);    
+        //$datos_prof = Profesiones::find($datos_usu->profesion_id);
         $datos_prof = '';
 
-        $data = request()->all(); //obtenemos datos formulario
-        //$data['clave1'] = bcrypt($data['clave1']);
+        $data = request()->validate([   //obtenemos datos formulario
+            'nombre' => 'required'                                     ,
+            'mail'   =>['required','email','unique:usuarios,email,'.$usu->id] ,
+            //'mail'   =>['required','email',Rule::unique('usuarios')->ignore($usu->id)],
+            'clave1' =>['required','alpha_num','between:4,14']         ,
+            'clave2' =>['required','alpha_num','between:4,14']         ,
+        ],[
+            'nombre.required'  => 'El campo nombre es obligatorio'             ,
+            'mail.required'    => 'El campo email es obligatorio'              ,
+            'mail.email'       => 'El mail debe tener formato ejemplo@mail.com',
+            'clave1.required'  => 'El campo password es obligatorio'           ,
+            'clave1.alpha_num' => 'El password admite solo alfanumericos'      ,
+            'clave1.between'   => 'El password debe tener de 4 a 14 caracteres',            
+            'clave2.required'  => 'El campo password es obligatorio'           ,
+            'clave2.alpha_num' => 'El password admite solo alfanumericos'      ,
+            'clave2.between'   => 'El password debe tener de 4 a 14 caracteres',
+        ]);
+
+        if ($data['clave1'] !== $data['clave1']) {
+            dd("Las claves no son iguales");
+        } 
+
         $usu['name']     = $data['nombre'];
         $usu['email']    = $data['mail'];
         $usu['password'] = bcrypt($data['clave1']);
         $usu->update($data);
 
-        //dd($usu);
-
         //return redirect()->route('l_usu_id',
-        //                        ['titulo'    =>$titulo, 
-        //                         'datos_prof'=>$datos_prof, 
-        //                         'datos_usu' =>$usu ]);
+        //                        ['titulo'    =>$titulo,
+        //                         'datos_prof'=>$datos_prof,
+        //                         'datos_usu' =>$usu ]); 
+        
         return view('usu.info',
                                 ['titulo'    =>$titulo,
                                  'datos_prof'=>$datos_prof,
                                  'datos_usu' =>$usu ]);
     }
 
+    public function destroy(Usuarios $usu)
+    {
+        $usu->delete();
+        //return redirect('usuarios');
+        return redirect()->route('l_usuarios');
+    }    
 }

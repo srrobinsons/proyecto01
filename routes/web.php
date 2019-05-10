@@ -8,7 +8,6 @@ Route::get('/', function() {
 Route::get('/usuarios','UsuControlador@usu_indice')
 		->name('l_usuarios');
 
-
 Route::get('/usuarios/nuevo','UsuControlador@usu_nuevo')
 		->name('l_nuevo');
 
@@ -24,7 +23,7 @@ Route::get('/usuarios/{id}','UsuControlador@usu_id')   //porq usu_id pasa sin pa
 		->name('l_usu_id')
 		->where('id','[0-9]+');
 		//->where('id','[A-Za-z_ ]+');
-		//->where('id','[A-Za-z]+');		
+		//->where('id','[A-Za-z]+');
 
 Route::post('/usuarios/{usu}','UsuControlador@update')
 		->name('l_update');
@@ -33,3 +32,7 @@ Route::post('/usuarios/{usu}','UsuControlador@update')
 // inicilizamos con null
 Route::get('/saludo/{name}/{nickname?}','WelcomeControlador');
 
+//Route::delete('/usuarios/{usu}','UsuControlador@destroy');
+
+Route::delete('/usuarios/{usu}','UsuControlador@destroy')
+		->name('l_destroy');

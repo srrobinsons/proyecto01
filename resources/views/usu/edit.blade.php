@@ -8,9 +8,9 @@
     
     @if ($errors->any())
     <div class="alert alert-danger">
-      <h6 class="mt-1">Corriga los errores</h6>  
-    </div>        
-    @endif                  
+      <h6 class="mt-1">Corriga los errores</h6>
+    </div>
+    @endif
 
     <form method="post" action="{{ route('l_update',$usu) }}">
 

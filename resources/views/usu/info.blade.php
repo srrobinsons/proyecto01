@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('titulo', "Usuario $datos_usu->id ")
- 
+
 @section('content')
 		@if (!empty($titulo))
         	<h1 class="mt-5">Usuario #{{ $datos_usu->id }} {{ $titulo }}</h1>
 		@else
-			<h1 class="mt-5">Usuario #{{ $datos_usu->id }}</h1>		
+			<h1 class="mt-5">Usuario #{{ $datos_usu->id }}</h1>
         @endif
 
         Detalle de usuario: {{ $datos_usu->name }} <br>

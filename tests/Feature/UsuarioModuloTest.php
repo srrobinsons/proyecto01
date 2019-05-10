@@ -234,4 +234,48 @@ class UsuarioModuloTest extends TestCase
             ]);
     }
     */
+
+    /**
+     * @test */
+    function nombre_requerido_en_update()
+
+    {
+        $usu = factory(Usuarios::class)->create();
+
+        //$this->withoutExceptionHandling();
+
+        $this->from("usuarios/{$usu}/editar")
+             ->put("usuarios/{$usu->id}",[
+                'nombre' => '',
+                'mail'=> 'popo@mail.com',
+                'clave1' => 'qwe123',
+                'clave2' => 'qwe123' ])
+             ->assertRedirect("usuarios/{$usu}/editar")
+             //->assertRedirect("usuarios/{$usu->id}")
+             ->assertSessionHasErrors(['nombre']);
+
+        $this->assertDatabaseHas('usuarios',[
+                'email'=> 'popo2@mail.com',
+            ]);        
+    }
+
+    /**
+     * @test */
+    function si_borro_usuario()
+
+    {
+        $this->withoutExceptionHandling();
+
+        $usu = factory(Usuarios::class)->create();
+
+        $this->delete("usuarios/{$usu->id}")
+            ->assertRedirect('usuarios');
+
+        //comprobamos que en la talba 'usuarios' no existe el id
+        $this->assertDatabaseMissing('usuarios', [
+            'id' => $usu->id
+        ]);
+
+        //$this->assertSame(0, User::count());
+    }
 }
